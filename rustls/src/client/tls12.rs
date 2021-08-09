@@ -110,7 +110,9 @@ mod server_hello {
 
             // See if we're successfully resuming.
             if let Some(ref resuming) = self.resuming_session {
-                if resuming.session_id == self.session_id {
+                if (SessionID::empty() != resuming.session_id)
+                    && (resuming.session_id == self.session_id) 
+                {
                     debug!("Server agreed to resume");
 
                     // Is the server telling lies about the ciphersuite?
